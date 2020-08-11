@@ -15,6 +15,8 @@ you can create the virtualenv manually.
 To manually create a virtualenv on MacOS and Linux:
 
 ```
+$ git clone https://github.com/ksmin23/neptune-tutorial.git
+$ cd neptune-tutorial/
 $ python3 -m venv .env
 ```
 
