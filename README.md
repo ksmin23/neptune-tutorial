@@ -1,8 +1,7 @@
+# Amazon Neptune Graphs and Jupyter Notebooks
 
-# Welcome to your CDK Python project!
-
-This is a blank project for Python development with CDK.
-
+This is a project to create an Amazon Neptune database using [AWS CDK \(Python\)](https://github.com/awslabs/aws-cdk),
+ and create a Neptune workbench connected to it.
 The `cdk.json` file tells the CDK Toolkit how to execute your app.
 
 This project is set up like a standard Python project.  The initialization
