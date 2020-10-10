@@ -51,7 +51,7 @@ class NeptuneTutorialStack(core.Stack):
       description='security group for neptune tutorial client',
       security_group_name='use-neptune-tutorial'
     )
-    core.Tag.add(sg_use_graph_db, 'Name', 'use-neptune-tutorial')
+    core.Tags.of(sg_use_graph_db).add('Name', 'use-neptune-tutorial')
 
     sg_graph_db = aws_ec2.SecurityGroup(self, "NeptuneSG",
       vpc=vpc,
@@ -59,7 +59,7 @@ class NeptuneTutorialStack(core.Stack):
       description='security group for neptune tutorial',
       security_group_name='neptune-tutorial'
     )
-    core.Tag.add(sg_graph_db, 'Name', 'neptune-tutorial')
+    core.Tags.of(sg_graph_db).add('Name', 'neptune-tutorial')
 
     sg_graph_db.add_ingress_rule(peer=sg_graph_db, connection=aws_ec2.Port.tcp(8182), description='neptune-tutorial')
     sg_graph_db.add_ingress_rule(peer=sg_use_graph_db, connection=aws_ec2.Port.tcp(8182), description='use-neptune-tutorial')
