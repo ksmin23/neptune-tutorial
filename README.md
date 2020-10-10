@@ -64,3 +64,6 @@ command.
  * `cdk docs`        open CDK documentation
 
 Enjoy!
+
+## License
+These samples are available under the [MIT License](LICENSE).
