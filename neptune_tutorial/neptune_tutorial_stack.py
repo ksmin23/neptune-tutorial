@@ -115,8 +115,8 @@ class NeptuneTutorialStack(core.Stack):
 
     sagemaker_notebook_role_policy_doc.add_statements(aws_iam.PolicyStatement(**{
       "effect": aws_iam.Effect.ALLOW,
-      "resources": ["arn:aws:neptune-db:{region}:{account}:cluster-*/*".format(
-        region=core.Aws.REGION, account=core.Aws.ACCOUNT_ID)],
+      "resources": ["arn:aws:neptune-db:{region}:{account}:{cluster_id}/*".format(
+        region=core.Aws.REGION, account=core.Aws.ACCOUNT_ID, cluster_id=graph_db.attr_cluster_resource_id)],
       "actions": ["neptune-db:connect"]
     }))
 
@@ -165,3 +165,4 @@ EOF
       security_group_ids=[sg_use_graph_db.security_group_name],
       subnet_id=graph_db_subnet_group.subnet_ids[0]
     )
+
