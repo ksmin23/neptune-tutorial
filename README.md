@@ -1,4 +1,4 @@
-# Amazon Neptune Graphs and Jupyter Notebooks
+# AWS CDK Python project for Amazon Neptune and Jupyter Notebooks
 
 This is a project to create an Amazon Neptune database using [AWS CDK \(Python\)](https://github.com/awslabs/aws-cdk),
  and create a Neptune workbench connected to it.
