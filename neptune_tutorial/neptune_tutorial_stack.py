@@ -62,43 +62,42 @@ class NeptuneTutorialStack(core.Stack):
     sg_graph_db.add_ingress_rule(peer=sg_graph_db, connection=aws_ec2.Port.tcp(8182), description='neptune-tutorial')
     sg_graph_db.add_ingress_rule(peer=sg_use_graph_db, connection=aws_ec2.Port.tcp(8182), description='use-neptune-tutorial')
 
-    graph_db_subnet_group = aws_neptune.CfnDBSubnetGroup(self, "NeptuneTutorialSubnetGroup",
-      db_subnet_group_description="subnet group for neptune tutorial",
+    graph_db_subnet_group = aws_neptune.CfnDBSubnetGroup(self, 'NeptuneTutorialSubnetGroup',
+      db_subnet_group_description='subnet group for neptune tutorial',
       subnet_ids=vpc.select_subnets(subnet_type=aws_ec2.SubnetType.PRIVATE).subnet_ids,
       db_subnet_group_name='neptune-tutorial'
     )
 
-    graph_db = aws_neptune.CfnDBCluster(self, "NeptuneTutorial",
+    graph_db = aws_neptune.CfnDBCluster(self, 'NeptuneTutorial',
       availability_zones=vpc.availability_zones,
       db_subnet_group_name=graph_db_subnet_group.db_subnet_group_name,
-      db_cluster_identifier="neptune-tutorial",
+      db_cluster_identifier='neptune-tutorial',
       backup_retention_period=1,
-      preferred_backup_window="08:45-09:15",
-      preferred_maintenance_window="sun:18:00-sun:18:30",
+      preferred_backup_window='08:45-09:15',
+      preferred_maintenance_window='sun:18:00-sun:18:30',
       vpc_security_group_ids=[sg_graph_db.security_group_id]
     )
     graph_db.add_depends_on(graph_db_subnet_group)
 
-    graph_db_instance = aws_neptune.CfnDBInstance(self, "NeptuneTutorialInstance",
-      db_instance_class="db.r5.large",
+    graph_db_instance = aws_neptune.CfnDBInstance(self, 'NeptuneTutorialInstance',
+      db_instance_class='db.r5.large',
       allow_major_version_upgrade=False,
       auto_minor_version_upgrade=False,
       availability_zone=vpc.availability_zones[0],
       db_cluster_identifier=graph_db.db_cluster_identifier,
-      db_instance_identifier="neptune-tutorial",
-      preferred_maintenance_window="sun:18:00-sun:18:30"
+      db_instance_identifier='neptune-tutorial',
+      preferred_maintenance_window='sun:18:00-sun:18:30'
     )
     graph_db_instance.add_depends_on(graph_db)
 
-    graph_db_replica_instance = aws_neptune.CfnDBInstance(self, "NeptuneTutorialReplicaInstance",
-      db_instance_class="db.r5.large",
+    graph_db_replica_instance = aws_neptune.CfnDBInstance(self, 'NeptuneTutorialReplicaInstance',
+      db_instance_class='db.r5.large',
       allow_major_version_upgrade=False,
       auto_minor_version_upgrade=False,
       availability_zone=vpc.availability_zones[-1],
       db_cluster_identifier=graph_db.db_cluster_identifier,
-      db_instance_identifier="neptune-tutorial-replica",
-      preferred_maintenance_window="sun:18:00-sun:18:30"
+      db_instance_identifier='neptune-tutorial-replica',
+      preferred_maintenance_window='sun:18:00-sun:18:30'
     )
     graph_db_replica_instance.add_depends_on(graph_db)
     graph_db_replica_instance.add_depends_on(graph_db_instance)
-
